@@ -1,13 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const { urlencoded } = require("body-parser");
 
 const app = express();
 let items = ["Buy Food", "Cook Food", "Eat Food"];
 
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(express.static("public"));
 app.set("view engine", "ejs");
 
 app.get("/", function (req, res) {
@@ -52,11 +50,10 @@ app.get("/", function (req, res) {
 });
 
 app.post("/", function (req, res) {
-  let items = req.body.newItem;
+  let item = req.body.newItem;
 
-  items.push(items);
-  console.log(items);
-
+  items.push(item);
+  console.log(item);
   res.redirect("/");
 });
 
